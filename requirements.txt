@@ -1,0 +1,5 @@
+flask
+requests
+openai
+load_dotenv
+azure-functions
