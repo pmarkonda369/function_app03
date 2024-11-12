@@ -15,7 +15,7 @@ search_endpoint = os.getenv('SEARCH_ENDPOINT')
 search_key = os.getenv('SEARCH_KEY')
 search_index = os.getenv('SEARCH_INDEX')
 
-def search_azure_cognitive(query1):
+def search_azure_cognitive(query):
     headers = {
         'Content-Type': 'application/json',
         'api-key': search_key
@@ -24,7 +24,7 @@ def search_azure_cognitive(query1):
     search_url = f"{search_endpoint}/indexes/{search_index}/docs/search?api-version=2021-04-30-Preview"
 
     search_payload = {
-        "search": query1,
+        "search": query,
         "queryType": "semantic",
         "top": 5,
         "queryLanguage": "en-us",
@@ -38,13 +38,13 @@ def search_azure_cognitive(query1):
     else:
         return f"Search Error: {response.status_code}, {response.text}"
 
-def generate_openai_response(query1):
-    search_results = search_azure_cognitive(query1)
+def generate_openai_response(query):
+    search_results = search_azure_cognitive(query)
     
  
     chat_prompt = [
         {"role": "system", "content": "You are an AI assistant that helps people find information."},
-        {"role": "user", "content": query1}
+        {"role": "user", "content": query}
     ]
 
  

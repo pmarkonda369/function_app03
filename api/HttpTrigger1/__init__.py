@@ -7,23 +7,23 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Azure Function has received a request.')
 
     # Initialize `query` variable
-    query1 = None
+    query = None
 
     # Attempt to retrieve `query` from query parameters or JSON body
     try:
-        query1 = req.params.get('query')
-        if not query1:
+        query = req.params.get('query')
+        if not query:
             req_body = req.get_json()
-            query1 = req_body.get('query')
+            query = req_body.get('query')
     except ValueError:
         logging.error("Failed to parse JSON body")
 
     # Check if `query` has a value
-    if query1:
-        logging.info(f"Received query: {query1}")
+    if query:
+        logging.info(f"Received query: {query}")
         try:
             # Generate response using the function
-            bot_response = generate_openai_response(query1)
+            bot_response = generate_openai_response(query)
             logging.info(f"Bot Response: {bot_response}")
             return func.HttpResponse(f"Bot Response: {bot_response}")
         except Exception as e:
