@@ -1,7 +1,7 @@
 import azure.functions as func
 import logging
 import json
-from bot import generate_openai_response  # Ensure this import is correct
+from api.HttpTrigger1.bot import generate_openai_response  # Ensure this import is correct
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Azure Function has received a request.')
